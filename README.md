@@ -32,6 +32,7 @@ A utility script that batch imports collection definitions from JSON files into 
 
 To use this script, you need a Nocobase API token (JWT).  
 You can obtain it by logging in to your Nocobase instance.
+Api Key Plugin was required.
 
 ## Usage
 

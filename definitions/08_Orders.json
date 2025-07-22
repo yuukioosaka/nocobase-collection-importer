@@ -1,0 +1,31 @@
+{
+  "logging": true,
+  "name": "crm_order",
+  "template": "general",
+  "view": false,
+  "title": "発注",
+  "titleField": "name",
+  "fields": [
+    {"name":"id","type":"bigInt","autoIncrement":true,"primaryKey":true,"allowNull":false,"uiSchema":{"type":"number","title":"{{t(\"ID\")}}","x-component":"InputNumber","x-read-pretty":true},"interface":"integer"},
+    {"name":"createdAt","interface":"createdAt","type":"date","field":"createdAt","uiSchema":{"type":"datetime","title":"{{t(\"Created at\")}}","x-component":"DatePicker","x-component-props":{},"x-read-pretty":true}},
+    {"name":"createdBy","interface":"createdBy","type":"belongsTo","target":"users","foreignKey":"createdById","uiSchema":{"type":"object","title":"{{t(\"Created by\")}}","x-component":"AssociationField","x-component-props":{"fieldNames":{"value":"id","label":"nickname"}},"x-read-pretty":true}},
+    {"name":"updatedAt","type":"date","field":"updatedAt","interface":"updatedAt","uiSchema":{"type":"datetime","title":"{{t(\"Last updated at\")}}","x-component":"DatePicker","x-component-props":{},"x-read-pretty":true}},
+    {"name":"updatedBy","type":"belongsTo","target":"users","foreignKey":"updatedById","interface":"updatedBy","uiSchema":{"type":"object","title":"{{t(\"Last updated by\")}}","x-component":"AssociationField","x-component-props":{"fieldNames":{"value":"id","label":"nickname"}},"x-read-pretty":true}},
+    {"name":"account","type":"belongsTo","uiSchema":{"x-component":"AssociationField","title":"取引先ID"},"interface":"m2o","foreignKey":"accountId","onDelete":"SET NULL","target":"crm_account","targetKey":"id"},
+    {"name":"quote","type":"belongsTo","uiSchema":{"x-component":"AssociationField","title":"見積ID"},"interface":"m2o","foreignKey":"quoteId","onDelete":"SET NULL","target":"crm_quote","targetKey":"id"},
+    {"name":"name","interface":"input","type":"string","uiSchema":{"type":"string","x-component":"Input","title":"発注名"}},
+    {"name":"status","type":"string","uiSchema":{"type":"string","x-component":"Select","enum":[{"value":"ordered","label":"発注済"},{"value":"delivery_wait","label":"納品待"},{"value":"accepted","label":"検収済"},{"value":"paid","label":"支払済"},{"value":"cancelled","label":"キャンセル"}],"title":"ステータス"},"interface":"select"},
+    {"name":"orderDate","type":"dateOnly","uiSchema":{"type":"string","x-component":"DatePicker","x-component-props":{"dateOnly":true,"picker":"date"},"title":"発注日"},"interface":"date"},
+    {"name":"totalAmount","interface":"number","type":"float","uiSchema":{"type":"number","x-component":"InputNumber","title":"合計金額(税抜)"}},
+    {"name":"tax","interface":"number","type":"float","uiSchema":{"type":"number","x-component":"InputNumber","title":"税額"}},
+    {"name":"totalAmountWithTax","interface":"number","type":"float","uiSchema":{"type":"number","x-component":"InputNumber","title":"合計金額(税込)"}},
+    {"name":"deliveryDate","type":"dateOnly","uiSchema":{"type":"string","x-component":"DatePicker","x-component-props":{"dateOnly":true,"picker":"date"},"title":"納品日"},"interface":"date"},
+    {"name":"deliveryAddress","interface":"textarea","type":"text","uiSchema":{"type":"string","x-component":"Input.TextArea","title":"納品先住所"}},
+    {"name":"invoiceNumber","interface":"input","type":"string","uiSchema":{"type":"string","x-component":"Input","title":"請求書番号"}},
+    {"name":"paymentDate","type":"dateOnly","uiSchema":{"type":"string","x-component":"DatePicker","x-component-props":{"dateOnly":true,"picker":"date"},"title":"支払日"},"interface":"date"},
+    {"name":"files","type":"belongsToMany","target":"attachments","uiSchema":{"type":"array","x-component":"Upload.Attachment","x-use-component-props":"useAttachmentFieldProps","x-component-props":{"multiple":true},"title":"添付ファイル"},"interface":"attachment"},
+    {"name":"description","interface":"textarea","type":"text","uiSchema":{"type":"string","x-component":"Input.TextArea","title":"説明"}},
+    {"name":"isDeleted","type":"boolean","uiSchema":{"type":"boolean","x-component":"Checkbox","title":"削除フラグ"},"interface":"checkbox"}
+  ],
+  "autoGenId": false
+}

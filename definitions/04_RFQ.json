@@ -1,0 +1,24 @@
+{
+  "logging": true,
+  "name": "crm_rfq",
+  "template": "general",
+  "view": false,
+  "title": "RFQ",
+  "titleField": "name",
+  "fields": [
+    {"name":"id","type":"bigInt","autoIncrement":true,"primaryKey":true,"allowNull":false,"uiSchema":{"type":"number","title":"{{t(\"ID\")}}","x-component":"InputNumber","x-read-pretty":true},"interface":"integer"},
+    {"name":"createdAt","interface":"createdAt","type":"date","field":"createdAt","uiSchema":{"type":"datetime","title":"{{t(\"Created at\")}}","x-component":"DatePicker","x-component-props":{},"x-read-pretty":true}},
+    {"name":"createdBy","interface":"createdBy","type":"belongsTo","target":"users","foreignKey":"createdById","uiSchema":{"type":"object","title":"{{t(\"Created by\")}}","x-component":"AssociationField","x-component-props":{"fieldNames":{"value":"id","label":"nickname"}},"x-read-pretty":true}},
+    {"name":"updatedAt","type":"date","field":"updatedAt","interface":"updatedAt","uiSchema":{"type":"datetime","title":"{{t(\"Last updated at\")}}","x-component":"DatePicker","x-component-props":{},"x-read-pretty":true}},
+    {"name":"updatedBy","type":"belongsTo","target":"users","foreignKey":"updatedById","interface":"updatedBy","uiSchema":{"type":"object","title":"{{t(\"Last updated by\")}}","x-component":"AssociationField","x-component-props":{"fieldNames":{"value":"id","label":"nickname"}},"x-read-pretty":true}},
+    {"name":"account","type":"belongsTo","uiSchema":{"x-component":"AssociationField","title":"取引先ID"},"interface":"m2o","foreignKey":"accountId","onDelete":"SET NULL","target":"crm_account","targetKey":"id"},
+    {"name":"name","interface":"input","type":"string","uiSchema":{"type":"string","x-component":"Input","title":"RFQ名"}},
+    {"name":"status","type":"string","uiSchema":{"type":"string","x-component":"Select","enum":[{"value":"draft","label":"ドラフト"},{"value":"sent","label":"送付済"},{"value":"approved","label":"承認済"}],"title":"ステータス"},"interface":"select"},
+    {"name":"totalPrice","interface":"number","type":"float","uiSchema":{"type":"number","x-component":"InputNumber","title":"合計金額"}},
+    {"name":"dueDate","type":"dateOnly","uiSchema":{"type":"string","x-component":"DatePicker","x-component-props":{"dateOnly":true,"picker":"date"},"title":"期日"},"interface":"date"},
+    {"name":"files","type":"belongsToMany","target":"attachments","uiSchema":{"type":"array","x-component":"Upload.Attachment","x-use-component-props":"useAttachmentFieldProps","x-component-props":{"multiple":true},"title":"添付ファイル"},"interface":"attachment"},
+    {"name":"description","interface":"textarea","type":"text","uiSchema":{"type":"string","x-component":"Input.TextArea","title":"説明"}},
+    {"name":"isDeleted","type":"boolean","uiSchema":{"type":"boolean","x-component":"Checkbox","title":"削除フラグ"},"interface":"checkbox"}
+  ],
+  "autoGenId": false
+}

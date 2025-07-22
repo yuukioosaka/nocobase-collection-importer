@@ -1,0 +1,32 @@
+{
+  "logging": true,
+  "name": "crm_activity",
+  "template": "general",
+  "view": false,
+  "title": "活動",
+  "titleField": "subject",
+  "fields": [
+    {"name":"id","type":"bigInt","autoIncrement":true,"primaryKey":true,"allowNull":false,"uiSchema":{"type":"number","title":"{{t(\"ID\")}}","x-component":"InputNumber","x-read-pretty":true},"interface":"integer"},
+    {"name":"createdAt","interface":"createdAt","type":"date","field":"createdAt","uiSchema":{"type":"datetime","title":"{{t(\"Created at\")}}","x-component":"DatePicker","x-component-props":{},"x-read-pretty":true}},
+    {"name":"createdBy","interface":"createdBy","type":"belongsTo","target":"users","foreignKey":"createdById","uiSchema":{"type":"object","title":"{{t(\"Created by\")}}","x-component":"AssociationField","x-component-props":{"fieldNames":{"value":"id","label":"nickname"}},"x-read-pretty":true}},
+    {"name":"updatedAt","type":"date","field":"updatedAt","interface":"updatedAt","uiSchema":{"type":"datetime","title":"{{t(\"Last updated at\")}}","x-component":"DatePicker","x-component-props":{},"x-read-pretty":true}},
+    {"name":"updatedBy","type":"belongsTo","target":"users","foreignKey":"updatedById","interface":"updatedBy","uiSchema":{"type":"object","title":"{{t(\"Last updated by\")}}","x-component":"AssociationField","x-component-props":{"fieldNames":{"value":"id","label":"nickname"}},"x-read-pretty":true}},
+    {"name":"lead","type":"belongsTo","uiSchema":{"x-component":"AssociationField","title":"リードID"},"interface":"m2o","foreignKey":"leadId","onDelete":"SET NULL","target":"crm_lead","targetKey":"id"},
+    {"name":"account","type":"belongsTo","uiSchema":{"x-component":"AssociationField","title":"取引先ID"},"interface":"m2o","foreignKey":"accountId","onDelete":"SET NULL","target":"crm_account","targetKey":"id"},
+    {"name":"contact","type":"belongsTo","uiSchema":{"x-component":"AssociationField","title":"取引先担当者ID"},"interface":"m2o","foreignKey":"contactId","onDelete":"SET NULL","target":"crm_contact","targetKey":"id"},
+    {"name":"opportunity","type":"belongsTo","uiSchema":{"x-component":"AssociationField","title":"商談ID"},"interface":"m2o","foreignKey":"opportunityId","onDelete":"SET NULL","target":"crm_opportunity","targetKey":"id"},
+    {"name":"case","type":"belongsTo","uiSchema":{"x-component":"AssociationField","title":"ケースID"},"interface":"m2o","foreignKey":"caseId","onDelete":"SET NULL","target":"crm_case","targetKey":"id"},
+    {"name":"subject","interface":"input","type":"string","uiSchema":{"type":"string","x-component":"Input","title":"件名"}},
+    {"name":"status","type":"string","uiSchema":{"type":"string","x-component":"Select","enum":[{"value":"not_started","label":"未着手"},{"value":"in_progress","label":"進行中"},{"value":"completed","label":"完了"}],"title":"ステータス"},"interface":"select"},
+    {"name":"dueDate","type":"dateOnly","uiSchema":{"type":"string","x-component":"DatePicker","x-component-props":{"dateOnly":true,"picker":"date"},"title":"期日"},"interface":"date"},
+    {"name":"activityDate","type":"dateOnly","uiSchema":{"type":"string","x-component":"DatePicker","x-component-props":{"dateOnly":true,"picker":"date"},"title":"活動日"},"interface":"date"},
+    {"name":"type","type":"string","uiSchema":{"type":"string","x-component":"Select","enum":[{"value":"email","label":"EMAIL"},{"value":"call","label":"コール"},{"value":"meeting","label":"ミーティング"},{"value":"todo","label":"TODO"}],"title":"種別"},"interface":"select"},
+    {"name":"priority","type":"string","uiSchema":{"type":"string","x-component":"Select","enum":[{"value":"high","label":"高"},{"value":"medium","label":"中"},{"value":"low","label":"低"}],"title":"優先度"},"interface":"select"},
+    {"name":"location","interface":"input","type":"string","uiSchema":{"type":"string","x-component":"Input","title":"場所"}},
+    {"name":"files","type":"belongsToMany","target":"attachments","uiSchema":{"type":"array","x-component":"Upload.Attachment","x-use-component-props":"useAttachmentFieldProps","x-component-props":{"multiple":true},"title":"添付ファイル"},"interface":"attachment"},
+    {"name":"description","interface":"textarea","type":"text","uiSchema":{"type":"string","x-component":"Input.TextArea","title":"説明"}},
+    {"name":"owner","type":"belongsTo","uiSchema":{"x-component":"AssociationField","title":"所有者ID"},"interface":"m2o","foreignKey":"ownerId","onDelete":"SET NULL","target":"users","targetKey":"id"},
+    {"name":"isDeleted","type":"boolean","uiSchema":{"type":"boolean","x-component":"Checkbox","title":"削除フラグ"},"interface":"checkbox"}
+  ],
+  "autoGenId": false
+}

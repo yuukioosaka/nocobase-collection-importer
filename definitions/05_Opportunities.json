@@ -1,0 +1,29 @@
+{
+  "logging": true,
+  "name": "crm_opportunity",
+  "template": "general",
+  "view": false,
+  "title": "商談",
+  "titleField": "subject",
+  "fields": [
+    {"name":"id","type":"bigInt","autoIncrement":true,"primaryKey":true,"allowNull":false,"uiSchema":{"type":"number","title":"{{t(\"ID\")}}","x-component":"InputNumber","x-read-pretty":true},"interface":"integer"},
+    {"name":"createdAt","interface":"createdAt","type":"date","field":"createdAt","uiSchema":{"type":"datetime","title":"{{t(\"Created at\")}}","x-component":"DatePicker","x-component-props":{},"x-read-pretty":true}},
+    {"name":"createdBy","interface":"createdBy","type":"belongsTo","target":"users","foreignKey":"createdById","uiSchema":{"type":"object","title":"{{t(\"Created by\")}}","x-component":"AssociationField","x-component-props":{"fieldNames":{"value":"id","label":"nickname"}},"x-read-pretty":true}},
+    {"name":"updatedAt","type":"date","field":"updatedAt","interface":"updatedAt","uiSchema":{"type":"datetime","title":"{{t(\"Last updated at\")}}","x-component":"DatePicker","x-component-props":{},"x-read-pretty":true}},
+    {"name":"updatedBy","type":"belongsTo","target":"users","foreignKey":"updatedById","interface":"updatedBy","uiSchema":{"type":"object","title":"{{t(\"Last updated by\")}}","x-component":"AssociationField","x-component-props":{"fieldNames":{"value":"id","label":"nickname"}},"x-read-pretty":true}},
+    {"name":"account","type":"belongsTo","uiSchema":{"x-component":"AssociationField","title":"取引先ID"},"interface":"m2o","foreignKey":"accountId","onDelete":"SET NULL","target":"crm_account","targetKey":"id"},
+    {"name":"contact","type":"belongsTo","uiSchema":{"x-component":"AssociationField","title":"取引先担当者ID"},"interface":"m2o","foreignKey":"contactId","onDelete":"SET NULL","target":"crm_contact","targetKey":"id"},
+    {"name":"rfq","type":"belongsTo","uiSchema":{"x-component":"AssociationField","title":"RFQID"},"interface":"m2o","foreignKey":"rfqId","onDelete":"SET NULL","target":"crm_rfq","targetKey":"id"},
+    {"name":"type","type":"string","uiSchema":{"type":"string","x-component":"Select","enum":[{"value":"new","label":"新規"},{"value":"renewal","label":"更新"},{"value":"upsell","label":"アップセル"},{"value":"cross_sell","label":"クロスセル"}],"title":"商談種別"},"interface":"select"},
+    {"name":"subject","interface":"input","type":"string","uiSchema":{"type":"string","x-component":"Input","title":"件名"}},
+    {"name":"stage","type":"string","uiSchema":{"type":"string","x-component":"Select","enum":[{"value":"proposal","label":"提示"},{"value":"negotiation","label":"交渉"},{"value":"closing","label":"クロージング"},{"value":"won","label":"受注"},{"value":"lost","label":"失注"}],"title":"フェーズ"},"interface":"select"},
+    {"name":"dueDate","type":"dateOnly","uiSchema":{"type":"string","x-component":"DatePicker","x-component-props":{"dateOnly":true,"picker":"date"},"title":"期日"},"interface":"date"},
+    {"name":"amount","interface":"number","type":"float","uiSchema":{"type":"number","x-component":"InputNumber","title":"商談金額"}},
+    {"name":"probability","interface":"number","type":"float","uiSchema":{"type":"number","x-component":"InputNumber","x-component-props":{"addonAfter":"%"},"title":"可能性"}},
+    {"name":"source","interface":"input","type":"string","uiSchema":{"type":"string","x-component":"Input","title":"ソース"}},
+    {"name":"description","interface":"textarea","type":"text","uiSchema":{"type":"string","x-component":"Input.TextArea","title":"説明"}},
+    {"name":"owner","type":"belongsTo","uiSchema":{"x-component":"AssociationField","title":"所有者ID"},"interface":"m2o","foreignKey":"ownerId","onDelete":"SET NULL","target":"users","targetKey":"id"},
+    {"name":"isDeleted","type":"boolean","uiSchema":{"type":"boolean","x-component":"Checkbox","title":"削除フラグ"},"interface":"checkbox"}
+  ],
+  "autoGenId": false
+}

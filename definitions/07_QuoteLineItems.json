@@ -1,0 +1,27 @@
+{
+  "logging": true,
+  "name": "crm_quotelineitem",
+  "template": "general",
+  "view": false,
+  "title": "見積明細",
+  "titleField": "productName",
+  "fields": [
+    {"name":"id","type":"bigInt","autoIncrement":true,"primaryKey":true,"allowNull":false,"uiSchema":{"type":"number","title":"{{t(\"ID\")}}","x-component":"InputNumber","x-read-pretty":true},"interface":"integer"},
+    {"name":"createdAt","interface":"createdAt","type":"date","field":"createdAt","uiSchema":{"type":"datetime","title":"{{t(\"Created at\")}}","x-component":"DatePicker","x-component-props":{},"x-read-pretty":true}},
+    {"name":"createdBy","interface":"createdBy","type":"belongsTo","target":"users","foreignKey":"createdById","uiSchema":{"type":"object","title":"{{t(\"Created by\")}}","x-component":"AssociationField","x-component-props":{"fieldNames":{"value":"id","label":"nickname"}},"x-read-pretty":true}},
+    {"name":"updatedAt","type":"date","field":"updatedAt","interface":"updatedAt","uiSchema":{"type":"datetime","title":"{{t(\"Last updated at\")}}","x-component":"DatePicker","x-component-props":{},"x-read-pretty":true}},
+    {"name":"updatedBy","type":"belongsTo","target":"users","foreignKey":"updatedById","interface":"updatedBy","uiSchema":{"type":"object","title":"{{t(\"Last updated by\")}}","x-component":"AssociationField","x-component-props":{"fieldNames":{"value":"id","label":"nickname"}},"x-read-pretty":true}},
+    {"name":"quote","type":"belongsTo","uiSchema":{"x-component":"AssociationField","title":"見積ID"},"interface":"m2o","foreignKey":"quoteId","onDelete":"SET NULL","target":"crm_quote","targetKey":"id"},
+    {"name":"productName","interface":"input","type":"string","uiSchema":{"type":"string","x-component":"Input","title":"商品名"}},
+    {"name":"quantity","interface":"number","type":"float","uiSchema":{"type":"number","x-component":"InputNumber","title":"数量"}},
+    {"name":"unitPrice","interface":"number","type":"float","uiSchema":{"type":"number","x-component":"InputNumber","title":"単価"}},
+    {"name":"listPrice","interface":"number","type":"float","uiSchema":{"type":"number","x-component":"InputNumber","title":"定価"}},
+    {"name":"discount","interface":"number","type":"float","uiSchema":{"type":"number","x-component":"InputNumber","title":"値引"}},
+    {"name":"subtotal","interface":"number","type":"float","uiSchema":{"type":"number","x-component":"InputNumber","title":"小計"}},
+    {"name":"tax","interface":"number","type":"float","uiSchema":{"type":"number","x-component":"InputNumber","title":"税額"}},
+    {"name":"totalPrice","interface":"number","type":"float","uiSchema":{"type":"number","x-component":"InputNumber","title":"合計金額"}},
+    {"name":"sortOrder","interface":"number","type":"integer","uiSchema":{"type":"number","x-component":"InputNumber","title":"表示順"}},
+    {"name":"description","interface":"textarea","type":"text","uiSchema":{"type":"string","x-component":"Input.TextArea","title":"説明"}}
+  ],
+  "autoGenId": false
+}
